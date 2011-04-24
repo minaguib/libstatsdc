@@ -1,6 +1,60 @@
 
-Follow the instructions in INSTALL
 
-If you cloned from a repo and you're lacking the "./configure" script, first run:
-autoreconf --install
+About
+---------------------------------------------------------------------------------
 
+  libstatsdc is a C client library to the etsy/statsd statistics daemon.
+
+  For more info, see :
+    * http://codeascraft.etsy.com/2011/02/15/measure-anything-measure-everything/
+    * https://github.com/etsy/statsd
+
+---------------------------------------------------------------------------------
+
+
+Usage
+---------------------------------------------------------------------------------
+
+  Interface documented in libstatsdc/satsdc.h
+
+  See the accompanying src/example.c file for example usage
+
+---------------------------------------------------------------------------------
+
+
+Installation instructions
+---------------------------------------------------------------------------------
+
+  Follow the instructions in INSTALL file
+
+  If you cloned from a repo and you're lacking the "./configure" script,
+  first run:
+
+    autoreconf --install
+
+---------------------------------------------------------------------------------
+
+
+Notes
+---------------------------------------------------------------------------------
+
+  While UDP is fire-and-forget, this library may block on DNS operations in
+  statsdc_reconnect
+
+  If you'd like guaranteed non-blocking behavior, ensure:
+    * Supply the host as an IP address string, which would not require DNS
+      resolution
+    * Guarantee fast DNS operations by your OS (via /etc/hosts for example)
+      or via upstream DNS servers and/or caching proxies
+
+---------------------------------------------------------------------------------
+
+
+Copyright
+---------------------------------------------------------------------------------
+
+  This code is Copyright 2011 Mina Naguib.
+
+  See the accompanying COPYING file for use and distribution legalese.
+
+---------------------------------------------------------------------------------

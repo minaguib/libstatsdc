@@ -1,6 +1,7 @@
 /*
  * libstatsdc
- * See the COPYING file for use and distribution legalese.
+ * Copyright 2011 Mina Naguib
+ * See the accompanying COPYING file for use and distribution legalese.
  *
  */
 
@@ -19,8 +20,8 @@ int main(int argc, char ** argv) {
 	sdc = statsdc_init(host, port);
 
 	while (1) {
-		statsdc_increment(sdc, "test.statsdc.increment");
-		statsdc_update(sdc, "test.statsdc.sampled_increment", 1, 0.333);
+		statsdc_increment(sdc, "test.libstatsdc.increment");
+		statsdc_update(sdc, "test.libstatsdc.sampled_increment", 1, 0.333);
 		printf(".");
 		fflush(stdout);
 		sleep(1);
