@@ -7,11 +7,16 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
 #include <statsdc.h>
 
 int main(int argc, char ** argv) {
 	char *host = "localhost", *port = "8125";
 	statsdc_t sdc;
+
+	srand(time(NULL));
 
 	if (argc >= 2) host = argv[1];
 	if (argc >= 3) port = argv[2];

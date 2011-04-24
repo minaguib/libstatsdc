@@ -38,14 +38,19 @@ Installation instructions
 Notes
 ---------------------------------------------------------------------------------
 
-  While UDP is fire-and-forget, this library may block on DNS operations in
+  1. While UDP is fire-and-forget, this library may block on DNS operations in
   statsdc_reconnect
 
-  If you'd like guaranteed non-blocking behavior, ensure:
+    If you'd like guaranteed non-blocking behavior, ensure:
+
     * Supply the host as an IP address string, which would not require DNS
       resolution
     * Guarantee fast DNS operations by your OS (via /etc/hosts for example)
       or via upstream DNS servers and/or caching proxies
+
+  2. If supplying sample_rate != 1, rand() will internally be called.  However
+     srand() will not be called.  You should srand() once early on in your
+     application to properly seed the PRNG.
 
 ---------------------------------------------------------------------------------
 
