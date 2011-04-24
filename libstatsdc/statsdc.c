@@ -199,3 +199,11 @@ int statsdc_timing(statsdc_t sdc, char *key, int value, float sample_rate) {
 
 	return _statsdc_send(sdc, key, value, _STATSDC_SEND_TYPE_TIMING, sample_rate);
 }
+
+int statsdc_increment(statsdc_t sdc, char *key) {
+	return statsdc_update(sdc, key, 1, 1);
+}
+
+int statsdc_decrement(statsdc_t sdc, char *key) {
+	return statsdc_update(sdc, key, -1, 1);
+}

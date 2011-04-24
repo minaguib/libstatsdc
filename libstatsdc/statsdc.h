@@ -57,17 +57,13 @@ int statsdc_timing(statsdc_t sdc, char *key, int value, float sample_rate);
  * Sugar: Sends a counter update of delta:1 and sample_rate:1
  * Returns 1 on success, 0 on error
  */
-int statsdc_increment(statsdc_t sdc, char *key) {
-	return statsdc_update(sdc, key, 1, 1);
-}
+int statsdc_increment(statsdc_t sdc, char *key);
 
 /*
  * Sugar: Sends a counter update of delta:-1 and sample_rate:1
  * Returns 1 on success, 0 on error
  */
-int statsdc_decrement(statsdc_t sdc, char *key) {
-	return statsdc_update(sdc, key, -1, 1);
-}
+int statsdc_decrement(statsdc_t sdc, char *key);
 
 #ifdef __cplusplus
 }
