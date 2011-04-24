@@ -15,7 +15,7 @@ About
 Usage
 ---------------------------------------------------------------------------------
 
-  Interface documented in libstatsdc/satsdc.h
+  Interface documented in libstatsdc/statsdc.h
 
   See the accompanying src/example.c file for example usage
 
