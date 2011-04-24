@@ -1,0 +1,6 @@
+
+Follow the instructions in INSTALL
+
+If you cloned from a repo and you're lacking the "./configure" script, first run:
+autoreconf --install
+
