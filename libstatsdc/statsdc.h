@@ -45,13 +45,13 @@ int statsdc_reconnect(statsdc_t sdc);
  * Send a counter update
  * Returns 1 on success, 0 on error
  */
-int statsdc_update(statsdc_t sdc, char *key, int delta, float sample_rate);
+int statsdc_update(statsdc_t sdc, char *key, long int delta, float sample_rate);
 
 /*
  * Send a timing update
  * Returns 1 on success, 0 on error
  */
-int statsdc_timing(statsdc_t sdc, char *key, int value, float sample_rate);
+int statsdc_timing(statsdc_t sdc, char *key, long int value, float sample_rate);
 
 /*
  * Sugar: Sends a counter update of delta:1 and sample_rate:1
