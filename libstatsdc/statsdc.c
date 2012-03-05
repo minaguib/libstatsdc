@@ -56,7 +56,7 @@ _statsdc_error(statsdc_t sdc, const char *format, ...) {
  */
 static
 int
-_statsdc_send(statsdc_t sdc, char *key, long int delta, enum _statsdc_send_type type, float sample_rate) {
+_statsdc_send(statsdc_t sdc, const char *key, long int delta, enum _statsdc_send_type type, float sample_rate) {
 	char *packet = NULL;
 	char *typekey = NULL;
 	ssize_t sent;
@@ -97,7 +97,7 @@ _statsdc_send(statsdc_t sdc, char *key, long int delta, enum _statsdc_send_type 
 	return 1;
 }
 
-statsdc_t statsdc_init(char *host, char *port) {
+statsdc_t statsdc_init(const char *host, const char *port) {
 	statsdc_t sdc = NULL;
 	if (host == NULL || port == NULL) return NULL;
 	sdc = (statsdc_t)malloc(sizeof(struct _statsdc));
@@ -178,7 +178,7 @@ char * statsdc_last_error_string(statsdc_t sdc) {
 	}
 }
 
-int statsdc_update(statsdc_t sdc, char *key, long int delta, float sample_rate) {
+int statsdc_update(statsdc_t sdc, const char *key, long int delta, float sample_rate) {
 	if (sdc == NULL) return 0;
 	if (key == NULL) {
 		_statsdc_error(sdc, "Empty key");
@@ -189,7 +189,7 @@ int statsdc_update(statsdc_t sdc, char *key, long int delta, float sample_rate) 
 	return _statsdc_send(sdc, key, delta, _STATSDC_SEND_TYPE_COUNTER, sample_rate);
 }
 
-int statsdc_timing(statsdc_t sdc, char *key, long int value, float sample_rate) {
+int statsdc_timing(statsdc_t sdc, const char *key, long int value, float sample_rate) {
 	if (sdc == NULL) return 0;
 	if (key == NULL) {
 		_statsdc_error(sdc, "Empty key");
@@ -200,10 +200,10 @@ int statsdc_timing(statsdc_t sdc, char *key, long int value, float sample_rate) 
 	return _statsdc_send(sdc, key, value, _STATSDC_SEND_TYPE_TIMING, sample_rate);
 }
 
-int statsdc_increment(statsdc_t sdc, char *key) {
+int statsdc_increment(statsdc_t sdc, const char *key) {
 	return statsdc_update(sdc, key, 1, 1);
 }
 
-int statsdc_decrement(statsdc_t sdc, char *key) {
+int statsdc_decrement(statsdc_t sdc, const char *key) {
 	return statsdc_update(sdc, key, -1, 1);
 }
