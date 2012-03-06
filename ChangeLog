@@ -1,0 +1,7 @@
+
+0.2
+	* Change most signatures from char* to const char* for C++ friendliness
+		Thanks to François Saint-Jacques
+
+0.1
+	* Initial release
