@@ -20,7 +20,7 @@ typedef struct _statsdc * statsdc_t;
  *
  * Returns statsdc_t on success, NULL on failure
  */
-statsdc_t statsdc_init(char *host, char * port);
+statsdc_t statsdc_init(const char *host, const char * port);
 
 /*
  * Frees the statsdc object when you're done with it
@@ -36,7 +36,7 @@ char * statsdc_last_error_string(statsdc_t sdc);
 /*
  * Asks the statsdc object to re-resolve DNS if any and connect
  * the socket to the destination address
- * 
+ *
  * Returns 1 on success, 0 on error
  */
 int statsdc_reconnect(statsdc_t sdc);
@@ -50,7 +50,7 @@ int statsdc_reconnect(statsdc_t sdc);
  *
  * Returns 1 on success, 0 on error
  */
-int statsdc_update(statsdc_t sdc, char *key, long int delta, float sample_rate);
+int statsdc_update(statsdc_t sdc, const char *key, long int delta, float sample_rate);
 
 /*
  * Send a timing update
@@ -61,21 +61,21 @@ int statsdc_update(statsdc_t sdc, char *key, long int delta, float sample_rate);
  *
  * Returns 1 on success, 0 on error
  */
-int statsdc_timing(statsdc_t sdc, char *key, long int value, float sample_rate);
+int statsdc_timing(statsdc_t sdc, const char *key, long int value, float sample_rate);
 
 /*
  * Sugar: Sends a counter update of delta:1 and sample_rate:1
  *
  * Returns 1 on success, 0 on error
  */
-int statsdc_increment(statsdc_t sdc, char *key);
+int statsdc_increment(statsdc_t sdc, const char *key);
 
 /*
  * Sugar: Sends a counter update of delta:-1 and sample_rate:1
  *
  * Returns 1 on success, 0 on error
  */
-int statsdc_decrement(statsdc_t sdc, char *key);
+int statsdc_decrement(statsdc_t sdc, const char *key);
 
 #ifdef __cplusplus
 }
