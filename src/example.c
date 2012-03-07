@@ -23,10 +23,11 @@ int main(int argc, char ** argv) {
 	printf("Sending to statsd at %s:%s\n", host, port);
 
 	sdc = statsdc_init(host, port);
+	statsdc_prefix(sdc, "test");
 
 	while (1) {
-		statsdc_increment(sdc, "test.libstatsdc.increment");
-		statsdc_update(sdc, "test.libstatsdc.sampled_increment", 1, 0.333);
+		statsdc_increment(sdc, "libstatsdc.increment");
+		statsdc_update(sdc, "libstatsdc.sampled_increment", 1, 0.333);
 		printf(".");
 		fflush(stdout);
 		sleep(1);
