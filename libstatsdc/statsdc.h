@@ -41,6 +41,16 @@ char * statsdc_last_error_string(statsdc_t sdc);
  */
 int statsdc_reconnect(statsdc_t sdc);
 
+
+/*
+ * Set a common prefix for all keys. The character `.' will be added
+ * between the concatenated strings. To unset a prefix use the NULL value as
+ * prefix.
+ *
+ * Returns 1 on success, 0 on error
+ */
+int statsdc_prefix(statsdc_t sdc, const char* prefix);
+
 /*
  * Send a counter update
  *
