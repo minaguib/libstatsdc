@@ -23,6 +23,7 @@ struct _statsdc {
 	char *port;
 	int socket;
 	char *last_error_string;
+	char *prefix;
 };
 
 enum _statsdc_send_type {
@@ -74,11 +75,24 @@ _statsdc_send(statsdc_t sdc, const char *key, long int delta, enum _statsdc_send
 		typekey = "ms";
 	}
 
+	// The extra branching for prefix support might `uglify' the code, but it's
+	// the most efficient way to do it, since a call to asprintf is technicaly
+	// costly at a micro level.
 	if (sample_rate < 1) {
-		asprintf(&packet, "%s:%ld|%s|@%f", key, delta, typekey, sample_rate);
+		if (sdc->prefix != NULL) {
+			asprintf(&packet, "%s.%s:%ld|%s|@%f", sdc->prefix, key, delta, typekey, sample_rate);
+		}
+		else {
+			asprintf(&packet, "%s:%ld|%s|@%f", key, delta, typekey, sample_rate);
+		}
 	}
 	else {
-		asprintf(&packet, "%s:%ld|%s", key, delta, typekey);
+		if (sdc->prefix != NULL) {
+			asprintf(&packet, "%s.%s:%ld|%s", sdc->prefix, key, delta, typekey);
+		}
+		else {
+			asprintf(&packet, "%s:%ld|%s", key, delta, typekey);
+		}
 	}
 
 	if (packet == NULL) {
@@ -107,6 +121,7 @@ statsdc_t statsdc_init(const char *host, const char *port) {
 	sdc->port = strdup(port);
 	sdc->socket = 0;
 	sdc->last_error_string = NULL;
+	sdc->prefix = NULL;
 
 	statsdc_reconnect(sdc);
 
@@ -166,6 +181,10 @@ void statsdc_free(statsdc_t sdc) {
 		free(sdc->last_error_string);
 		sdc->last_error_string = NULL;
 	}
+	if (sdc->prefix != NULL) {
+		free(sdc->prefix);
+		sdc->prefix= NULL;
+	}
 	free(sdc);
 }
 
@@ -176,6 +195,19 @@ char * statsdc_last_error_string(statsdc_t sdc) {
 	else {
 		return sdc->last_error_string;
 	}
+}
+
+int statsdc_prefix(statsdc_t sdc, const char* prefix) {
+	if (sdc == NULL) return 0;
+	if (sdc->prefix != NULL) {
+		free(sdc->prefix);
+		sdc->prefix = NULL;
+	}
+	if (prefix != NULL) {
+		sdc->prefix = strdup(prefix);
+		if (sdc->prefix == NULL) return 0;
+	}
+	return 1;
 }
 
 int statsdc_update(statsdc_t sdc, const char *key, long int delta, float sample_rate) {
