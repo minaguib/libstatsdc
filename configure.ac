@@ -19,6 +19,7 @@ AC_FUNC_MALLOC
 AC_CHECK_FUNCS([socket strdup strerror])
 
 AM_INIT_AUTOMAKE([-Wall -Werror])
+AM_PROG_AR
 LT_INIT
 
 AC_OUTPUT
