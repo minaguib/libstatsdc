@@ -28,6 +28,7 @@ struct _statsdc {
 
 enum _statsdc_send_type {
 	_STATSDC_SEND_TYPE_COUNTER,
+	_STATSDC_SEND_TYPE_GAUGE,
 	_STATSDC_SEND_TYPE_TIMING
 };
 
@@ -51,6 +52,8 @@ _statsdc_error(statsdc_t sdc, const char *format, ...) {
  * Protocol:
  *	key:delta|c
  *	key:delta|c|@rate
+ *	key:delta|g
+ *	key:delta|g|@rate
  *	key:value|ms
  *	key:value|ms|@rate
  *
@@ -70,6 +73,9 @@ _statsdc_send(statsdc_t sdc, const char *key, long int delta, enum _statsdc_send
 
 	if (type == _STATSDC_SEND_TYPE_COUNTER) {
 		typekey = "c";
+	}
+	else if (type == _STATSDC_SEND_TYPE_GAUGE) {
+		typekey = "g";
 	}
 	else if (type == _STATSDC_SEND_TYPE_TIMING) {
 		typekey = "ms";
@@ -220,6 +226,18 @@ int statsdc_update(statsdc_t sdc, const char *key, long int delta, float sample_
 
 	return _statsdc_send(sdc, key, delta, _STATSDC_SEND_TYPE_COUNTER, sample_rate);
 }
+
+int statsdc_gauge(statsdc_t sdc, const char *key, long int value, float sample_rate) {
+	if (sdc == NULL) return 0;
+	if (key == NULL) {
+		_statsdc_error(sdc, "Empty key");
+		return 0;
+	}
+	if (sample_rate < 1 && ((float)rand() / RAND_MAX) >= sample_rate) return 1;
+
+	return _statsdc_send(sdc, key, value, _STATSDC_SEND_TYPE_GAUGE, sample_rate);
+}
+
 
 int statsdc_timing(statsdc_t sdc, const char *key, long int value, float sample_rate) {
 	if (sdc == NULL) return 0;

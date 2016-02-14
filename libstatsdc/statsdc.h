@@ -63,6 +63,18 @@ int statsdc_prefix(statsdc_t sdc, const char* prefix);
 int statsdc_update(statsdc_t sdc, const char *key, long int delta, float sample_rate);
 
 /*
+ * Send a gauge update
+ *
+ * key is the "key.name.to.impact" in the graphite tree
+ * value is the gauge's current value
+ * sample_rate should be between 0.0 and 1.0
+ *
+ * Returns 1 on success, 0 on error
+ */
+int statsdc_gauge(statsdc_t sdc, const char *key, long int value, float sample_rate);
+
+
+/*
  * Send a timing update
  *
  * key is the "key.name.to.impact" in the graphite tree
