@@ -1,4 +1,4 @@
-AC_INIT([libstatsdc], [0.4], [mina.libstatsdc@naguib.ca])
+AC_INIT([libstatsdc], [0.5], [mina@naguib.ca])
 
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_HEADERS([config.h])
