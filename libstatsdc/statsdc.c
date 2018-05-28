@@ -32,6 +32,7 @@ enum _statsdc_send_type {
 	_STATSDC_SEND_TYPE_TIMING
 };
 
+__attribute__((format(printf, 2, 3)))
 static
 void
 _statsdc_error(statsdc_t sdc, const char *format, ...) {
