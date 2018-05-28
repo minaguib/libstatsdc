@@ -158,7 +158,7 @@ int statsdc_reconnect(statsdc_t sdc) {
 		return 0;
 	}
 	else if (ai == NULL) {
-		_statsdc_error(sdc, "No addrinfo available for %s:%s");
+		_statsdc_error(sdc, "No addrinfo available for %s:%s", sdc->host, sdc->port);
 		return 0;
 	}
 	else {
