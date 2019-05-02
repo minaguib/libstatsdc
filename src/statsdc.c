@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
+#include <err.h>
 #include <errno.h>
 
 #include <sys/types.h>
@@ -44,7 +45,8 @@ _statsdc_error(statsdc_t sdc, const char *format, ...) {
 	}
 
 	va_start(ap, format);
-	vasprintf(&(sdc->last_error_string), format, ap);
+	if (-1 == vasprintf(&(sdc->last_error_string), format, ap))
+		errx(1, "cannot allocate memory for error message");
 	va_end(ap);
 
 }
@@ -87,18 +89,26 @@ _statsdc_send(statsdc_t sdc, const char *key, long int delta, enum _statsdc_send
 	// costly at a micro level.
 	if (sample_rate < 1) {
 		if (sdc->prefix != NULL) {
-			asprintf(&packet, "%s.%s:%ld|%s|@%f", sdc->prefix, key, delta, typekey, sample_rate);
+			if (-1 == asprintf(&packet, "%s.%s:%ld|%s|@%f", sdc->prefix, key, delta, typekey, sample_rate)) {
+				errx(1, "cannot allocate string for metric");
+			}
 		}
 		else {
-			asprintf(&packet, "%s:%ld|%s|@%f", key, delta, typekey, sample_rate);
+			if (-1 == asprintf(&packet, "%s:%ld|%s|@%f", key, delta, typekey, sample_rate)) {
+				errx(1, "cannot allocate string for metric");
+			}
 		}
 	}
 	else {
 		if (sdc->prefix != NULL) {
-			asprintf(&packet, "%s.%s:%ld|%s", sdc->prefix, key, delta, typekey);
+			if (-1 == asprintf(&packet, "%s.%s:%ld|%s", sdc->prefix, key, delta, typekey)) {
+				errx(1, "cannot allocate string for metric");
+			}
 		}
 		else {
-			asprintf(&packet, "%s:%ld|%s", key, delta, typekey);
+			if (-1 == asprintf(&packet, "%s:%ld|%s", key, delta, typekey)) {
+				errx(1, "cannot allocate string for metric");
+			}
 		}
 	}
 
@@ -137,7 +147,7 @@ statsdc_t statsdc_init(const char *host, const char *port) {
 
 int statsdc_reconnect(statsdc_t sdc) {
 
-	struct addrinfo hints = {}, *ai = NULL;
+	struct addrinfo hints = {0}, *ai = NULL;
 	int res;
 
 	if (sdc->socket == 0) {
