@@ -1,6 +1,9 @@
 AC_INIT([libstatsdc], [0.5], [mina@naguib.ca])
 
+AC_PREREQ([2.60])
 AC_CONFIG_AUX_DIR([build-aux])
+# Enable GNU extensions
+AC_USE_SYSTEM_EXTENSIONS
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile libstatsdc/Makefile src/Makefile])
 AC_CONFIG_SRCDIR([libstatsdc/statsdc.h])
@@ -16,7 +19,7 @@ AC_TYPE_SSIZE_T
 
 # Checks for library functions.
 AC_FUNC_MALLOC
-AC_CHECK_FUNCS([socket strdup strerror])
+AC_CHECK_FUNCS([socket strdup strerror vasprintf asprintf])
 
 AM_INIT_AUTOMAKE([-Wall -Werror])
 AM_PROG_AR
