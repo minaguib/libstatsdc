@@ -19,7 +19,7 @@ AC_TYPE_SSIZE_T
 
 # Checks for library functions.
 AC_FUNC_MALLOC
-AC_CHECK_FUNCS([socket strdup strerror vasprintf asprintf])
+AC_CHECK_FUNCS([socket strdup strerror vasprintf asprintf], [], [exit 1])
 
 AM_INIT_AUTOMAKE([-Wall -Werror])
 AM_PROG_AR
