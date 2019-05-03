@@ -25,12 +25,7 @@ Usage
 Installation instructions
 ---------------------------------------------------------------------------------
 
-  Follow the instructions in INSTALL file
-
-  If you cloned from a repo and you're lacking the "./configure" script,
-  first run:
-
-    autoreconf --install
+  Run `make`.
 
 ---------------------------------------------------------------------------------
 
