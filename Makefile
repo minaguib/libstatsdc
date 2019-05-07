@@ -4,21 +4,23 @@ CC = gcc
 CFLAGS = -Wall -Wextra -pedantic -fpic -std=gnu99 -D_GNU_SOURCE
 LDFLAGS = -lstatsdc
 
-all: build build/libstatsdc.so build/example
+BUILD_DIR = build
 
-build/statsdc.o: src/statsdc.c
+all: $(BUILD_DIR) $(BUILD_DIR)/libstatsdc.so $(BUILD_DIR)/example
+
+$(BUILD_DIR)/statsdc.o: src/statsdc.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -O2 -c -o $@ $<
 
-build/libstatsdc.so: build/statsdc.o
+$(BUILD_DIR)/libstatsdc.so: $(BUILD_DIR)/statsdc.o | $(BUILD_DIR)
 	$(CC) -shared -o $@ $<
 
-build/example: src/example.c build/libstatsdc.so
-	$(CC) $(CFLAGS) -Isrc -Lbuild -o $@ $< $(LDFLAGS)
+$(BUILD_DIR)/example: src/example.c $(BUILD_DIR)/libstatsdc.so | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -Isrc -L$(BUILD_DIR) -o $@ $< $(LDFLAGS)
 
-build:
+$(BUILD_DIR):
 	mkdir -p $@
 
 clean:
-	rm -rf build
+	rm -rf $(BUILD_DIR)
 
 .PHONY: all clean
