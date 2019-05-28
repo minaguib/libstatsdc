@@ -5,8 +5,6 @@
  *
  */
 
-#include <config.h>
-
 #ifndef _STATSDC_H
 
 #ifdef __cplusplus
