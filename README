@@ -1,7 +1,5 @@
-
-
 About
----------------------------------------------------------------------------------
+=====
 
   libstatsdc is a C client library to the etsy/statsd statistics daemon.
 
@@ -9,29 +7,23 @@ About
     * http://codeascraft.etsy.com/2011/02/15/measure-anything-measure-everything/
     * https://github.com/etsy/statsd
 
----------------------------------------------------------------------------------
+
+Installation instructions
+=========================
+
+  Run `make`.
 
 
 Usage
----------------------------------------------------------------------------------
+=====
 
   Interface documented in libstatsdc/statsdc.h
 
   See the accompanying src/example.c file for example usage
 
----------------------------------------------------------------------------------
-
-
-Installation instructions
----------------------------------------------------------------------------------
-
-  Run `make`.
-
----------------------------------------------------------------------------------
-
 
 Notes
----------------------------------------------------------------------------------
+=====
 
   1. While UDP is fire-and-forget, this library may block on DNS operations in
   statsdc_reconnect
@@ -47,14 +39,10 @@ Notes
      srand() will not be called.  You should srand() once early on in your
      application to properly seed the PRNG.
 
----------------------------------------------------------------------------------
-
 
 Copyright
----------------------------------------------------------------------------------
+=========
 
-  This code is Copyright 2011 Mina Naguib.
+  This code is Copyright 2011-2019 Mina Naguib.
 
   See the accompanying COPYING file for use and distribution legalese.
-
----------------------------------------------------------------------------------
