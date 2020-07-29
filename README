@@ -11,7 +11,10 @@ About
 Installation instructions
 =========================
 
-  Run `make`.
+  Run `make` to build and `make install` to install.
+
+  Arch Linux users might prefer to install with `pacman` using the PKGBUILD in
+  [archgear](https://github.com/adgear/archgear/tree/master/libstatsdc).
 
 
 Usage
