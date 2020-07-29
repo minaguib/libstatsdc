@@ -11,7 +11,16 @@ About
 Installation instructions
 =========================
 
-  Run `make`.
+  Run `make` to build and `make install` to install.
+
+  `make install` will install to `/usr/local/` by default. If your C compiler
+  does not search `/usr/local/include` for header files, then you might need to
+  tell it to.
+
+  To install elsewhere instead, use `PREFIX`, e. g. `make PREFIX=/usr install`.
+
+  Arch Linux users should prefer to install with `pacman` using the PKGBUILD in
+  [archgear](https://github.com/adgear/archgear/tree/master/libstatsdc).
 
 
 Usage
