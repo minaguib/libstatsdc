@@ -1,10 +1,13 @@
 .SUFFIXES:
 
-PREFIX ?= /usr/local
-PREFIX := $(DESTDIR)$(PREFIX)
+SHELL = /bin/sh
 
-VERSION = $(shell git describe --tags --abbrev=0)
-MAJOR_VERSION_NO = $(shell echo $(VERSION) | head -c 1)
+PREFIX ?= /usr/local
+LIBDIR := $(DESTDIR)$(PREFIX)/lib
+INCDIR := $(DESTDIR)$(PREFIX)/include
+
+VERSION          := $(shell git describe --tags --abbrev=0)
+MAJOR_VERSION_NO := $(shell echo $(VERSION) | head -c 1)
 
 CC = gcc
 CFLAGS = -Wall -Wextra -pedantic -fpic -std=gnu99 -D_GNU_SOURCE
@@ -30,19 +33,18 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 install: $(BUILD_DIR)/libstatsdc.so
-	mkdir -p "$(PREFIX)/include"
-	cp src/statsdc.h "$(PREFIX)/include/"
+	mkdir -p $(INCDIR)
+	cp src/statsdc.h $(INCDIR)
 
-	mkdir -p "$(PREFIX)/lib"
-	install "$(BUILD_DIR)/libstatsdc.so" "$(PREFIX)/lib/libstatsdc.so.$(VERSION)"
-
-	ln -s "$(PREFIX)/lib/libstatsdc.so.$(VERSION)" "$(PREFIX)/lib/libstatsdc.so.$(MAJOR_VERSION_NO)"
-	ln -s "$(PREFIX)/lib/libstatsdc.so.$(VERSION)" "$(PREFIX)/lib/libstatsdc.so"
+	mkdir -p $(LIBDIR)
+	install "$(BUILD_DIR)/libstatsdc.so" $(LIBDIR)/libstatsdc.so.$(VERSION)
+	ln -s "$(LIBDIR)/libstatsdc.so.$(VERSION)" "$(LIBDIR)/libstatsdc.so.$(MAJOR_VERSION_NO)"
+	ln -s "$(LIBDIR)/libstatsdc.so.$(VERSION)" "$(LIBDIR)/libstatsdc.so"
 
 uninstall:
-	$(RM) "$(PREFIX)/lib/libstatsdc.so"
-	$(RM) "$(PREFIX)/lib/libstatsdc.so.$(MAJOR_VERSION_NO)"
-	$(RM) "$(PREFIX)/lib/libstatsdc.so.$(VERSION)"
-	$(RM) "$(PREFIX)/include/libstatsdc.h"
+	$(RM) "$(LIBDIR)/libstatsdc.so"
+	$(RM) "$(LIBDIR)/libstatsdc.so.$(MAJOR_VERSION_NO)"
+	$(RM) "$(LIBDIR)/libstatsdc.so.$(VERSION)"
+	$(RM) "$(INCDIR)/libstatsdc.h"
 
 .PHONY: all clean install uninstall
