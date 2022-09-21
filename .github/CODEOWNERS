@@ -1,0 +1,4 @@
+*    @adgear/cg-dsp-online-data-store
+
+# Pull in the eng practices team on GitHub Actions and CODEOWNERS
+.github/* @adgear/prac-engineering
