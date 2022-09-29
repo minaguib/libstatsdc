@@ -1,0 +1,13 @@
+metadata:
+  name: "libstatsdc"
+  description: "C client library to the etsy/statsd statistics daemon."
+  labels:
+    jira-project: "ATS"
+    jira-board: "362"
+  links:
+    - url: "https://github.com/adgear/libstatsdc/blob/master/README"
+      title: "libstatsdc documentation"
+spec:
+  owner: "cg-dsp-online-data-store"
+  type: "library"
+  lifecycle: "production"
